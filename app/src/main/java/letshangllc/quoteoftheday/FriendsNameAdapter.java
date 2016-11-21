@@ -18,7 +18,8 @@ public class FriendsNameAdapter extends ArrayAdapter<Person> {
     private ArrayList<Person> persons;
 
     private static class ViewHolder {
-        TextView item;
+        TextView name;
+        TextView number;
     }
 
     public FriendsNameAdapter(Context context, ArrayList<Person> persons) {
@@ -37,13 +38,15 @@ public class FriendsNameAdapter extends ArrayAdapter<Person> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_name, parent, false);
-            viewHolder.item = (TextView) convertView.findViewById(R.id.tv_itemName);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.tv_itemName);
+            viewHolder.number = (TextView) convertView.findViewById(R.id.tv_number);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         // Populate the data into the template view using the data object
-        viewHolder.item.setText(item.getName() + " " + item.getNumber());
+        viewHolder.name.setText(item.getName());
+        viewHolder.number.setText(item.getNumber());
         // Return the completed view to render on screen
         return convertView;
     }

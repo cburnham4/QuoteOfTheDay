@@ -80,6 +80,29 @@ public class PreferencesManager {
         return persons;
     }
 
+    public void removePerson(Person person){
+        SharedPreferences.Editor editor = pref.edit();
+
+        Gson gson = new Gson();
+        String jsonPeople = pref.getString(PREF_PEOPLE, "");
+        Type type = new TypeToken<List<Person>>() {}.getType();
+
+        ArrayList<Person> persons = gson.fromJson(jsonPeople, type);
+        if(persons != null){
+            persons = new ArrayList<>();
+
+            persons.remove(person);
+
+            gson = new Gson();
+            String json = gson.toJson(persons);
+            editor.putString(PREF_PEOPLE, json);
+
+            editor.commit();
+        }
+
+
+    }
+
 
     public int getHour() {
         return pref.getInt(PREF_HOUR, 8);
