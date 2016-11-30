@@ -30,11 +30,10 @@ public class PreferencesManager {
 
     // Shared preferences file name
     private static final String PREF_NAME = "quote_daily_preferences";
-
     private static final String PREF_HOUR = "pref_hour";
     private static final String PREF_MINUTE = "pref_minute";
-
     private static final String PREF_PEOPLE = "pref_people";
+    private static final String PREF_QUOTE = "pref_quote";
 
     public PreferencesManager(Context context) {
         this.context = context;
@@ -68,6 +67,12 @@ public class PreferencesManager {
         editor.commit();
     }
 
+    public void setPrefQuote(String quote){
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(PREF_QUOTE, quote);
+        editor.commit();
+    }
+
     public ArrayList<Person> getPeople(){
         Gson gson = new Gson();
         String jsonPeople = pref.getString(PREF_PEOPLE, "");
@@ -87,6 +92,10 @@ public class PreferencesManager {
 
     public int getMinute(){
         return pref.getInt(PREF_MINUTE, 0);
+    }
+
+    public String getQuote(){
+        return pref.getString(PREF_QUOTE, "In order to succeed, we must first believe we can. \n- Nikos Kazantzakis");
     }
 
 }

@@ -86,7 +86,10 @@ public class AlarmReceiver extends BroadcastReceiver {
             String message =String.format(Locale.getDefault(), "%s \n- %s", quote, author);
             Log.i(TAG, message);
 
-            ArrayList<Person> persons = new PreferencesManager(context).getPeople();
+            PreferencesManager preferencesManager = new PreferencesManager(context);
+
+            preferencesManager.setPrefQuote(message);
+            ArrayList<Person> persons = preferencesManager.getPeople();
             for(Person person: persons){
                 sendSMS(person.getNumber(), message);
             }

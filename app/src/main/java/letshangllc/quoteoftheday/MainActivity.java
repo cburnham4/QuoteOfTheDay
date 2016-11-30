@@ -26,7 +26,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView tvTime;
+    private TextView tvTime, tvQuote;
     private int hour = 8;
     private int minute = 0;
 
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private PreferencesManager prefManager;
 
+    private String quote;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         prefManager = new PreferencesManager(this);
         hour = prefManager.getHour();
         minute = prefManager.getMinute();
+        this.quote = prefManager.getQuote();
 
         this.setupViews();
         /* Retrieve a PendingIntent that will perform a broadcast */
@@ -56,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupViews(){
         tvTime = (TextView) findViewById(R.id.tv_time);
+        tvQuote = (TextView) findViewById(R.id.tvQuote);
+
+        tvQuote.setText(quote);
+
         tvTime.setText(getFormattedTime(hour, minute));
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
