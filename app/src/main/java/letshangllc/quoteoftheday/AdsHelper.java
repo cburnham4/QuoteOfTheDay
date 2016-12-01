@@ -11,6 +11,7 @@ import com.amazon.device.ads.AdError;
 import com.amazon.device.ads.AdListener;
 import com.amazon.device.ads.AdProperties;
 import com.amazon.device.ads.AdRegistration;
+import com.amazon.device.ads.AdSize;
 
 
 /**
@@ -51,7 +52,7 @@ public class AdsHelper implements AdListener{
 
     private void setUpAds(){
         AdRegistration.setAppKey(amazon_id);
-        amazonAdView = new com.amazon.device.ads.AdLayout(activity, com.amazon.device.ads.AdSize.SIZE_320x50);
+        amazonAdView = new com.amazon.device.ads.AdLayout(activity, AdSize.SIZE_320x50);
         amazonAdView.setListener(this);
         //AdRegistration.enableTesting(true);
         admobAdView = new com.google.android.gms.ads.AdView(activity);
@@ -85,7 +86,8 @@ public class AdsHelper implements AdListener{
     @Override
     public void onAdFailedToLoad(Ad ad, AdError adError) {
         // Call AdMob SDK for backfill
-        Log.e("ADERROR", adError.getMessage());
+        Log.e("ADERROR", adError.getCode() +": "+ adError.getMessage() );
+
         if (amazonAdEnabled)
         {
             amazonAdEnabled = false;

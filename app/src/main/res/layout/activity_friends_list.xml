@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_friends_list"
     android:layout_width="match_parent"
@@ -13,8 +13,13 @@
 
     <!-- List View -->
     <ListView
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/ad_layout"
         android:id="@+id/lv_friends"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         />
-</LinearLayout>
+
+
+    <include layout="@layout/ad_layout"></include>
+</RelativeLayout>

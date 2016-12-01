@@ -22,11 +22,16 @@ public class FriendsList extends AppCompatActivity {
     private FriendsNameAdapter friendsNameAdapter;
     private ListView lvFriends;
 
+    private AdsHelper adsHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_list);
         this.setupViews();
+
+        adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
+        adsHelper.runAds();
 
     }
 

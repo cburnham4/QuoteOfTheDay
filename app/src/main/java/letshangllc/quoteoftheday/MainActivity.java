@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private PreferencesManager prefManager;
 
+    private AdsHelper adsHelper;
+
     private String quote;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
 
         startAlarm();
+
+        adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
+        adsHelper.runAds();
     }
 
     public void setupViews(){
