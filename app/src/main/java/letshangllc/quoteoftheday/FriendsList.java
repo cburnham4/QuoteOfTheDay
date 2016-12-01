@@ -69,7 +69,7 @@ public class FriendsList extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_remove_friend:
                 Person person = persons.get(info.position);
-                new PreferencesManager(this).removePerson(person);
+                new PreferencesManager(this).removePerson(person, info.position);
                 persons.remove(person);
                 friendsNameAdapter.notifyDataSetChanged();
 

@@ -85,7 +85,7 @@ public class PreferencesManager {
         return persons;
     }
 
-    public void removePerson(Person person){
+    public void removePerson(Person person, int index){
         SharedPreferences.Editor editor = pref.edit();
 
         Gson gson = new Gson();
@@ -94,9 +94,13 @@ public class PreferencesManager {
 
         ArrayList<Person> persons = gson.fromJson(jsonPeople, type);
         if(persons != null){
-            persons = new ArrayList<>();
+            Log.i(TAG, "Persons not null");
+            boolean isRemoved = persons.remove(person);
 
-            persons.remove(person);
+            Log.i(TAG, "Person Removed: " + isRemoved);
+            if(isRemoved == false){
+                persons.remove(index);
+            }
 
             gson = new Gson();
             String json = gson.toJson(persons);
