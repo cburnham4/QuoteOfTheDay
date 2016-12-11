@@ -37,7 +37,8 @@ public class DeviceBootReciever extends BroadcastReceiver {
             if(calendar.getTimeInMillis() < System.currentTimeMillis()){
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
-            
+
+
             manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }
