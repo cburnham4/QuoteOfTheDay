@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="letshangllc.quoteoftheday.FriendsList">
+    tools:context="letshangllc.quoteoftheday.FriendsListActivity">
 
     <!-- Toolbar -->
     <include layout="@layout/toolbar"

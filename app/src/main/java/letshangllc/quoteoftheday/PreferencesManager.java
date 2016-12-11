@@ -34,6 +34,7 @@ public class PreferencesManager {
     private static final String PREF_MINUTE = "pref_minute";
     private static final String PREF_PEOPLE = "pref_people";
     private static final String PREF_QUOTE = "pref_quote";
+    private static final String PREF_HAS_PERMISSIONS = "pref_has_permissions";
 
     public PreferencesManager(Context context) {
         this.context = context;
@@ -110,6 +111,16 @@ public class PreferencesManager {
         }
 
 
+    }
+
+    public void setHasPermission(boolean hasPermission){
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(PREF_HAS_PERMISSIONS, hasPermission);
+        editor.commit();
+    }
+
+    public boolean hasPermission(){
+        return pref.getBoolean(PREF_HAS_PERMISSIONS, false);
     }
 
 

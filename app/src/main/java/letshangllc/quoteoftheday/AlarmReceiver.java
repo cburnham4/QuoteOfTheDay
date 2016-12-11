@@ -42,11 +42,11 @@ public class AlarmReceiver extends BroadcastReceiver {
     private Context context;
     @Override
     public void onReceive(Context context, Intent intent) {
+
+
         Log.i(TAG, "Run Alarm");
 
         this.context = context;
-
-        //
         makeInitialHTTPRequest();
     }
 

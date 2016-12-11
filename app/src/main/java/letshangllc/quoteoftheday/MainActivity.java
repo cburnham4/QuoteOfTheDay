@@ -6,9 +6,10 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.Contacts;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,32 +21,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private TextView tvTime, tvQuote;
-    private int hour = 8;
-    private int minute = 0;
+
+    /* Preferences */
+    private int hour = 8, minute = 0;
+    private boolean hasPermissions;
+    private String quote;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private PendingIntent pendingIntent;
     private PreferencesManager prefManager;
 
+
     private AdsHelper adsHelper;
 
-    private String quote;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        prefManager = new PreferencesManager(this);
-        hour = prefManager.getHour();
-        minute = prefManager.getMinute();
-        this.quote = prefManager.getQuote();
+
+        this.getPreferences();
 
         this.setupViews();
         /* Retrieve a PendingIntent that will perform a broadcast */
@@ -78,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+    }
+
+    private void getPreferences(){
+        prefManager = new PreferencesManager(this);
+        hour = prefManager.getHour();
+        minute = prefManager.getMinute();
+        this.quote = prefManager.getQuote();
+        this.hasPermissions = prefManager.hasPermission();
     }
 
     private void showTimePicker(){
@@ -135,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_review_group:
                 /* Go to create a new Task */
-                startActivity(new Intent(MainActivity.this, FriendsList.class));
+                startActivity(new Intent(MainActivity.this, FriendsListActivity.class));
                 break;
             case R.id.action_add_person:
                 addFriend();
@@ -150,9 +160,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addFriend(){
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        startActivityForResult(intent, 0);
+        //Check permissions if marshmellow or greater
+        if((Build.VERSION.SDK_INT> Build.VERSION_CODES.LOLLIPOP_MR1 && !hasPermissions)){
+            askForPermissions();
+        }else{
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, 0);
+        }
     }
+
+    int permsRequestCode = 200;
+    public void askForPermissions(){
+
+        String[] perms = {"android.permission.READ_CONTACTS", "android.permission.SEND_SMS"};
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(perms, permsRequestCode);
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
+        switch(permsRequestCode){
+            case 200:
+                boolean contactsGranted = grantResults[0]==PackageManager.PERMISSION_GRANTED;
+                boolean smsGranted = grantResults[1]==PackageManager.PERMISSION_GRANTED;
+                if(smsGranted && contactsGranted){
+                    prefManager.setHasPermission(true);
+                    addFriend();
+                }
+                break;
+        }
+    }
+
 
     //code
     @Override
