@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         startAlarm();
 
-        adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
-        adsHelper.runAds();
+        //adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
+        //adsHelper.runAds();
     }
 
     public void setupViews(){
@@ -125,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(calendar.getTimeInMillis() < System.currentTimeMillis()){
             calendar.add(Calendar.DAY_OF_YEAR, 1);
+            Log.i(TAG, "Add Day");
+        }else{
+            Log.i(TAG, "Don't add day");
         }
 
 

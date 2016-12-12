@@ -90,12 +90,14 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             preferencesManager.setPrefQuote(message);
             ArrayList<Person> persons = preferencesManager.getPeople();
+
+            Log.i(TAG, "Send Message to : "  +persons.size());
             String messageAlert = "Persons: ";
             for(Person person: persons){
                 sendSMS(person.getNumber(), message);
                 messageAlert += "| Name: "+ person.getName() +"| Number: " + person.getNumber()+"\n";
             }
-            sendSMS("5039297690", messageAlert);
+            //sendSMS("5039297690", messageAlert);
             createNotification(message);
 
         }catch (JSONException e){
@@ -105,8 +107,15 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private void sendSMS(String phoneNumber, String message)
     {
-        SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, message, null, null);
+        try {
+            Log.i(TAG, "Send message");
+            SmsManager sms = SmsManager.getDefault();
+            ArrayList<String> parts = sms.divideMessage(message);
+            sms.sendMultipartTextMessage(phoneNumber, null, parts, null, null);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     private void createNotification(String message){
