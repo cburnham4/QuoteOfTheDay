@@ -4,8 +4,16 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- Permission to run code upon bootup -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <!-- Dangerous Permissions -->
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+
 
     <application
         android:allowBackup="true"
@@ -21,9 +29,28 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmReceiver"></receiver>
+        <receiver android:name=".AlarmReceiver"/>
 
-        <activity android:name=".FriendsList"></activity>
+        <receiver android:name=".DeviceBootReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".FriendsListActivity"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <activity
+            android:name="com.amazon.device.ads.AdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
     </application>
 
 </manifest>

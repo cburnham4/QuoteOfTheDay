@@ -36,7 +36,24 @@
             android:textColor="@android:color/black"
             android:clickable="true"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/tvQuote"
+            android:textSize="24sp"
+            android:textColor="@android:color/black"
+            android:background="#90FFFFFF"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="124dp"
+            android:padding="8dp"
+            />
+
     </LinearLayout>
+
+    <include layout="@layout/ad_layout"></include>
 
 
 </FrameLayout>

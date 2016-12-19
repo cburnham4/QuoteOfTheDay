@@ -30,11 +30,11 @@ public class PreferencesManager {
 
     // Shared preferences file name
     private static final String PREF_NAME = "quote_daily_preferences";
-
     private static final String PREF_HOUR = "pref_hour";
     private static final String PREF_MINUTE = "pref_minute";
-
     private static final String PREF_PEOPLE = "pref_people";
+    private static final String PREF_QUOTE = "pref_quote";
+    private static final String PREF_HAS_PERMISSIONS = "pref_has_permissions";
 
     public PreferencesManager(Context context) {
         this.context = context;
@@ -68,6 +68,12 @@ public class PreferencesManager {
         editor.commit();
     }
 
+    public void setPrefQuote(String quote){
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(PREF_QUOTE, quote);
+        editor.commit();
+    }
+
     public ArrayList<Person> getPeople(){
         Gson gson = new Gson();
         String jsonPeople = pref.getString(PREF_PEOPLE, "");
@@ -80,7 +86,7 @@ public class PreferencesManager {
         return persons;
     }
 
-    public void removePerson(Person person){
+    public void removePerson(Person person, int index){
         SharedPreferences.Editor editor = pref.edit();
 
         Gson gson = new Gson();
@@ -89,9 +95,13 @@ public class PreferencesManager {
 
         ArrayList<Person> persons = gson.fromJson(jsonPeople, type);
         if(persons != null){
-            persons = new ArrayList<>();
+            Log.i(TAG, "Persons not null");
+            boolean isRemoved = persons.remove(person);
 
-            persons.remove(person);
+            Log.i(TAG, "Person Removed: " + isRemoved);
+            if(isRemoved == false){
+                persons.remove(index);
+            }
 
             gson = new Gson();
             String json = gson.toJson(persons);
@@ -103,6 +113,16 @@ public class PreferencesManager {
 
     }
 
+    public void setHasPermission(boolean hasPermission){
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(PREF_HAS_PERMISSIONS, hasPermission);
+        editor.commit();
+    }
+
+    public boolean hasPermission(){
+        return pref.getBoolean(PREF_HAS_PERMISSIONS, false);
+    }
+
 
     public int getHour() {
         return pref.getInt(PREF_HOUR, 8);
@@ -110,6 +130,10 @@ public class PreferencesManager {
 
     public int getMinute(){
         return pref.getInt(PREF_MINUTE, 0);
+    }
+
+    public String getQuote(){
+        return pref.getString(PREF_QUOTE, "In order to succeed, we must first believe we can. \n- Nikos Kazantzakis");
     }
 
 }
