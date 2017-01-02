@@ -28,7 +28,7 @@ public class FriendsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends_list);
         this.setupViews();
 
-        adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
+        adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_friends), this);
         adsHelper.runAds();
 
     }
