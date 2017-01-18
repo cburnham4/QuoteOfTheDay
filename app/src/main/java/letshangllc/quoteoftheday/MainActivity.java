@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         startAlarm();
 
-        //adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
-        //adsHelper.runAds();
+        adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
+        adsHelper.runAds();
     }
 
     public void setupViews(){
