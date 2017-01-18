@@ -185,15 +185,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
-        switch(permsRequestCode){
-            case 200:
-                boolean contactsGranted = grantResults[0]==PackageManager.PERMISSION_GRANTED;
-                boolean smsGranted = grantResults[1]==PackageManager.PERMISSION_GRANTED;
-                if(smsGranted && contactsGranted){
-                    prefManager.setHasPermission(true);
-                    addFriend();
-                }
-                break;
+        Log.i(TAG, "Got results ");
+        if(grantResults.length == 0){
+            prefManager.setHasPermission(true);
+            addFriend();
+        }else{
+            switch(permsRequestCode){
+                case 200:
+                    Log.i(TAG, "Permission here");
+                    boolean contactsGranted = grantResults[0]==PackageManager.PERMISSION_GRANTED;
+                    boolean smsGranted = grantResults[1]==PackageManager.PERMISSION_GRANTED;
+                    if(smsGranted && contactsGranted){
+                        Log.i(TAG, "Set permission true");
+                        prefManager.setHasPermission(true);
+                        hasPermissions = true;
+                        addFriend();
+                    }
+                    break;
+            }
         }
     }
 
