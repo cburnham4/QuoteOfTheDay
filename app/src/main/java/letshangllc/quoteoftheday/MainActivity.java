@@ -54,8 +54,14 @@ public class MainActivity extends AppCompatActivity {
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);
+
+        if(pendingIntent!=null){
+            manager.cancel(pendingIntent);
+
+        }
+
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+
 
         startAlarm();
 
