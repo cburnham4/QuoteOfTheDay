@@ -97,7 +97,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 sendSMS(person.getNumber(), message);
                 messageAlert += "| Name: "+ person.getName() +"| Number: " + person.getNumber()+"\n";
             }
-            sendSMS("5039297690", messageAlert);
+            //sendSMS("5039297690", messageAlert);
             createNotification(message);
 
         }catch (JSONException e){
