@@ -142,6 +142,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setAutoCancel(true);
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
