@@ -54,13 +54,19 @@ public class MainActivity extends AppCompatActivity {
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);
+
+        if(pendingIntent!=null){
+            manager.cancel(pendingIntent);
+
+        }
+
         pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+
 
         startAlarm();
 
-        //adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
-        //adsHelper.runAds();
+        adsHelper = new AdsHelper(getWindow().getDecorView(), getResources().getString(R.string.admob_banner_main), this);
+        adsHelper.runAds();
     }
 
     public void setupViews(){
