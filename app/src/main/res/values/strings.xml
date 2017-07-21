@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Daily Motivation</string>
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aenean maximus est vitae sem dapibus commodo. Sed justo velit, commodo id tortor vitae,
+        sagittis dapibus felis. Donec in orci a leo vehicula dictum et sit amet enim. Pellentesque in l
+        ectus ex. In elementum nulla diam, vel bibendum nisl fermentum gravida. Duis nec lobortis ante, sed
+        tincidunt nibh. Phasellus congue quis quam non dignissim. Sed eget lorem semper, ullamcorper nibh non, consequat diam.
+
+Nullam luctus sed nisl euismod pulvinar. Aliquam congue iaculis est, non feugiat nunc tempus ac.
+        Vestibulum eros nunc, tincidunt at turpis vel, cursus tincidunt nisl. Suspendisse mauris ante,
+        vehicula ut egestas vitae, bibendum ut elit. Aliquam consequat ullamcorper commodo. Sed molestie
+        convallis nisl, vel lacinia urna efficitur at. Pellentesque sed tortor egestas, gravida nunc vitae,
+        interdum nibh. Aenean cursus porttitor metus id dictum. Nulla dapibus cursus mauris, in aliquam odio.
+        Mauris id eleifend leo. Etiam vel fringilla purus, eget consectetur dui. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Ut scelerisque neque ac eros congue pellentesque
+        a vel urna. Morbi eu risus mauris. Donec a consectetur magna.</string>
 </resources>
