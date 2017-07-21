@@ -14,46 +14,52 @@
         android:scaleType="centerCrop" />
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <include layout="@layout/toolbar"/>
-
-        <TextView
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Send Text"
-            android:gravity="center"/>
+            android:orientation="vertical">
+            <include layout="@layout/toolbar"/>
 
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="08:00 AM"
-            android:textSize="64sp"
-            android:gravity="center"
-            android:textColor="@android:color/black"
-            android:clickable="true"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time For Motivational Quote:"
+                android:gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/tvQuote"
-            android:textSize="24sp"
-            android:textColor="@android:color/black"
-            android:background="#90FFFFFF"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="124dp"
-            android:padding="8dp"
-            />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="08:00 AM"
+                android:textSize="64sp"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:clickable="true"
+                />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/tvQuote"
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
+                android:background="#90FFFFFF"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="124dp"
+                android:padding="8dp"
+                />
 
-    <include layout="@layout/ad_layout"></include>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <include layout="@layout/ad_layout"/>
 
 
 </FrameLayout>
