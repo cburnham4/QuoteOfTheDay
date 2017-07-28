@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/tvQuote"
-                
+
                 android:textSize="24sp"
                 android:textColor="@android:color/black"
                 android:background="#90FFFFFF"

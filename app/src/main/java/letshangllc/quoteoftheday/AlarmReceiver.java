@@ -20,13 +20,20 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -47,62 +54,83 @@ public class AlarmReceiver extends BroadcastReceiver {
         Log.i(TAG, "Run Alarm");
 
         this.context = context;
-        makeInitialHTTPRequest();
+        getQuotes();
     }
 
-    private void makeInitialHTTPRequest(){
+    //private void makeInitialHTTPRequest(){
         // Instantiate the RequestQueue.
-        queue = Volley.newRequestQueue(context);
-        String url = "http://quotes.rest/qod.json?category=inspire";
+//        queue = Volley.newRequestQueue(context);
+//        String url = "http://quotes.rest/qod.json?category=inspire";
+//
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+//                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        Log.i(TAG, response.toString());
+//                        parseResponse(response);
+//                    }
+//                }, new Response.ErrorListener() {
+//
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.e(TAG, error.toString());
+//
+//                    }
+//                });
+//
+//        // Add the request to the RequestQueue.
+//        queue.add(jsonObjectRequest);
+    //}
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+    private void getQuotes(){
+        Log.i(TAG, "Get quotes ");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("Quotes");
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i(TAG, response.toString());
-                        parseResponse(response);
-                    }
-                }, new Response.ErrorListener() {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> messages = new ArrayList<>();
+                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                    String author = dataSnapshot1.getKey();
+                    String quote = (String) dataSnapshot1.getValue();
+                    String message =String.format(Locale.getDefault(), "%s \n- %s", quote, author);
+                    messages.add(message);
+                }
+                int randomInt = new Random().nextInt(messages.size());
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, error.toString());
+                parseResponse(messages.get(randomInt));
+            }
 
-                    }
-                });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
 
-        // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest);
+        mDatabase.addListenerForSingleValueEvent(postListener);
     }
 
-    private void parseResponse(JSONObject jsonObject){
-        try{
-            JSONObject content = jsonObject.getJSONObject("contents");
-            JSONArray quotes = content.getJSONArray("quotes");
-            JSONObject quoteObj = quotes.getJSONObject(0);
-            String quote = quoteObj.getString("quote");
-            String author = quoteObj.getString("author");
-            String message =String.format(Locale.getDefault(), "%s \n- %s", quote, author);
-            Log.i(TAG, message);
+    private void parseResponse(String message){
 
-            PreferencesManager preferencesManager = new PreferencesManager(context);
+        Log.i(TAG, message);
 
-            preferencesManager.setPrefQuote(message);
-            ArrayList<Person> persons = preferencesManager.getPeople();
+        PreferencesManager preferencesManager = new PreferencesManager(context);
 
-            Log.i(TAG, "Send Message to : "  +persons.size());
-            String messageAlert = "Persons: ";
-            for(Person person: persons){
-                sendSMS(person.getNumber(), message);
-                messageAlert += "| Name: "+ person.getName() +"| Number: " + person.getNumber()+"\n";
-            }
-            //sendSMS("5039297690", messageAlert);
-            createNotification(message);
+        preferencesManager.setPrefQuote(message);
+        ArrayList<Person> persons = preferencesManager.getPeople();
 
-        }catch (JSONException e){
-            e.printStackTrace();
+        Log.i(TAG, "Send Message to : "  +persons.size());
+        String messageAlert = "Persons: ";
+        for(Person person: persons){
+            sendSMS(person.getNumber(), message);
+            messageAlert += "| Name: "+ person.getName() +"| Number: " + person.getNumber()+"\n";
         }
+        //sendSMS("5039297690", messageAlert);
+        createNotification(message);
+
     }
 
     private void sendSMS(String phoneNumber, String message)

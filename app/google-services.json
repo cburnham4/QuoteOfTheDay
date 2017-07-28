@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "195162150936",
+    "firebase_url": "https://motivational-quote-fixed.firebaseio.com",
+    "project_id": "motivational-quote-fixed",
+    "storage_bucket": "motivational-quote-fixed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195162150936:android:03175f29ef350f7c",
+        "android_client_info": {
+          "package_name": "letshangllc.quoteoftheday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195162150936-eqt5e1g0pu691bh2r66dudf42ogvbg6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdgTJ-4Yv51BJnlUkKcLuJDxtBlL9P9rk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
