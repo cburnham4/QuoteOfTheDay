@@ -8,15 +8,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <!-- Declared for SMS-to-friends feature; requires Play Console declarations -->
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <!-- SMS implies telephony; keep optional so tablets/ChromeOS can still install -->
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/trophy_114"
@@ -40,11 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".FriendsListActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
 
         <receiver
             android:name=".AlarmReceiver"

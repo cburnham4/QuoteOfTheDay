@@ -11,7 +11,9 @@ Use this when filling the Play Console Data safety form.
 
 ## Overview
 
-The app shows a daily motivational quote (bundled locally), optionally texts that quote to contacts the user adds, shows notifications at a chosen time, and displays AdMob banner ads after UMP consent.
+The app shows a daily motivational quote (bundled locally), notifies the user at a chosen time, lets the user share the quote via the **system share sheet** (`ACTION_SEND`) or open Messages with a prefilled `smsto:` intent (`ACTION_SENDTO`), and displays AdMob banner ads after UMP consent.
+
+The app does **not** use `SEND_SMS`, `READ_SMS`, `READ_CONTACTS`, or related restricted permissions. Sharing is user-driven through Android intents; the app never reads the address book or sends SMS silently.
 
 Remote quote APIs / Firebase Realtime Database are **no longer used**. Quotes are bundled in the APK.
 
@@ -21,26 +23,31 @@ Remote quote APIs / Firebase Realtime Database are **no longer used**. Quotes ar
 
 | Data Type | Collected | Shared | Purpose |
 |-----------|-----------|--------|---------|
-| Contacts (names/numbers user selects) | Yes (on device) | No* | App functionality (SMS friends list) |
-| Phone numbers (for SMS) | Yes (on device) | Via carrier SMS only | App functionality |
+| Contacts | No | No | — |
+| Phone numbers / SMS | No (app does not access) | No | User may share via system apps they choose |
 | Crash / diagnostics | No (no Crashlytics) | No | — |
 | App interactions | Yes (AdMob) | Yes (AdMob) | Advertising |
 | Advertising ID | Yes (AdMob) | Yes (AdMob) | Advertising |
 | Approximate location | Possibly (AdMob) | Yes (AdMob) | Advertising |
 
-\* Contact data is stored in app SharedPreferences on device. SMS content is sent only to numbers the user added, via the device SMS APIs / carrier — not to the developer’s servers.
+Local preferences store only the reminder time and the latest quote text on device.
 
 ---
 
-## Permissions That Need Play Declarations
+## Permissions
 
 | Permission | Why |
 |------------|-----|
-| `SEND_SMS` | Core feature: send the daily quote to friends the user added. **Restricted permission** — declare SMS use case in Play Console (and complete any declaration form). |
-| `READ_CONTACTS` | User picks friends from the address book. Declare Contacts data access. |
 | `POST_NOTIFICATIONS` | Daily quote reminder notification (Android 13+). |
 | `RECEIVE_BOOT_COMPLETED` | Reschedule the daily alarm after reboot. |
 | `INTERNET` / `ACCESS_NETWORK_STATE` / `ACCESS_WIFI_STATE` | AdMob / UMP only (quotes work offline). |
+
+### Explicitly not used (Play policy)
+
+- `SEND_SMS` / `READ_SMS` / `RECEIVE_SMS` / `READ_CALL_LOG` / etc.
+- `READ_CONTACTS` / `WRITE_CONTACTS` / `GET_ACCOUNTS`
+
+Quote sharing uses `Intent.ACTION_SEND` (share sheet) and optionally `Intent.ACTION_SENDTO` with `smsto:` so the user confirms in their messaging app — **no SMS or Contacts permission required**.
 
 ---
 
@@ -61,14 +68,15 @@ Remote quote APIs / Firebase Realtime Database are **no longer used**. Quotes ar
 - Amazon Mobile Ads SDK (HTTP / deprecated)
 - Firebase Realtime Database / Volley remote quote fetch
 - `quotes.rest` HTTP API
+- Direct SMS (`SmsManager`) and Contacts picker / friends list
 
 ---
 
 ## Data Security
 
 - **In transit:** AdMob/UMP use HTTPS. `android:usesCleartextTraffic="false"`.
-- **At rest:** Friends list and preferences stored in app SharedPreferences on device.
-- **Deletion:** User can remove friends in-app; uninstall clears local data. Contact the Play listing email for other requests.
+- **At rest:** Reminder time and latest quote in SharedPreferences on device.
+- **Deletion:** Uninstall clears local data. Contact the Play listing email for other requests.
 
 ---
 
@@ -81,18 +89,17 @@ UMP uses `setTagForUnderAgeOfConsent(false)`. No child-directed ad serving.
 
 ## Play Console Form Shortcuts
 
-- **Collects/shares required data types?** Yes (ads; optional contacts/SMS for the friends feature)
+- **Collects/shares required data types?** Yes (advertising via AdMob)
 - **Encrypted in transit?** Yes (for network SDKs)
-- **Users can request deletion?** Yes (in-app remove friends / uninstall / email developer)
+- **Users can request deletion?** Yes (uninstall / email developer)
 - **Ads?** Yes — declare AdMob and advertising ID
-- **SMS / Contacts?** Yes — complete sensitive permission declarations
+- **SMS / Call log / Contacts?** No — do not declare these; app does not request those permissions
 
 ---
 
 ## Owner TODOs Before Republish
 
 1. Replace TODO / test AdMob App ID and banner unit IDs with real IDs from AdMob Console (publisher `ca-app-pub-8223005482588566`).
-2. Complete Data safety form using this doc.
-3. Complete SMS and Contacts permission declarations.
-4. Review Families / ads policies (app is not designed as a kids app).
-5. Provide `keystore.properties` + keystore for release signing (gitignored).
+2. Complete Data safety form using this doc (ads only; no SMS/Contacts).
+3. Review Families / ads policies (app is not designed as a kids app).
+4. Provide `keystore.properties` + keystore for release signing (gitignored).

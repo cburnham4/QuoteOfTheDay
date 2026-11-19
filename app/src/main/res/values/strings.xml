@@ -2,8 +2,8 @@
     <string name="app_name">Daily Motivational Quotes</string>
     <string name="time_for_quote">Time For Motivational Quote:</string>
     <string name="default_time_display">08:00 AM</string>
-    <string name="action_review_group">Friends</string>
-    <string name="action_add_person">Add Friend</string>
-    <string name="action_remove_friend">Remove Friend</string>
+    <string name="share_quote">Share quote</string>
+    <string name="send_via_messages">Send via Messages</string>
+    <string name="notification_title">Motivational Quote</string>
     <string name="bg_image_desc">Motivational mountain background</string>
 </resources>

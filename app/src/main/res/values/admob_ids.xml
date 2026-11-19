@@ -9,9 +9,10 @@
     TODO(release): Replace ALL of these with real AdMob Console IDs before Play upload.
     Do NOT ship Google test IDs to production.
 
-    Historical banner unit IDs from an old git commit (verify in AdMob before use):
-      admob_banner_main    = ca-app-pub-8223005482588566/5530499537
-      admob_banner_friends = ca-app-pub-8223005482588566/7007232735
+    Historical banner unit ID from an old git commit (verify in AdMob before use):
+      admob_banner_main = ca-app-pub-8223005482588566/5530499537
+    (Former friends-list banner ca-app-pub-8223005482588566/7007232735 is unused after
+     SMS/Contacts friends feature was replaced with the system share sheet.)
     AdMob App ID (~XXXXXXXXXX) for THIS app was never in the repo — look up/create in AdMob.
 -->
 <resources>
@@ -20,7 +21,4 @@
 
     <!-- TODO(release): Replace with real MainActivity banner unit -->
     <string name="admob_banner_main" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-
-    <!-- TODO(release): Replace with real FriendsListActivity banner unit -->
-    <string name="admob_banner_friends" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

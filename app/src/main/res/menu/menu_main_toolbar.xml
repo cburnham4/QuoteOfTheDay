@@ -2,14 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_review_group"
-        android:icon="@drawable/ic_people_white_24dp"
-        android:title="@string/action_review_group"
+        android:id="@+id/action_share_quote"
+        android:title="@string/share_quote"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_add_person"
-        android:icon="@drawable/ic_person_add_white_24dp"
-        android:title="@string/action_add_person"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/action_send_message"
+        android:title="@string/send_via_messages"
+        app:showAsAction="never" />
 </menu>
