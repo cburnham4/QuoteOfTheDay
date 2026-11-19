@@ -99,7 +99,7 @@ UMP uses `setTagForUnderAgeOfConsent(false)`. No child-directed ad serving.
 
 ## Owner TODOs Before Republish
 
-1. Replace TODO / test AdMob App ID and banner unit IDs with real IDs from AdMob Console (publisher `ca-app-pub-8223005482588566`).
-2. Complete Data safety form using this doc (ads only; no SMS/Contacts).
-3. Review Families / ads policies (app is not designed as a kids app).
-4. Provide `keystore.properties` + keystore for release signing (gitignored).
+1. Complete Data safety form using this doc (ads only; no SMS/Contacts).
+2. Review Families / ads policies (app is not designed as a kids app).
+3. Provide `keystore.properties` + keystore for release signing (gitignored).
+4. Confirm AdMob app “Daily Motivational Quotes” (`ca-app-pub-8223005482588566~4053766337`) is linked in Play Console.
