@@ -1,10 +1,20 @@
 *.iml
 .gradle
 /local.properties
+local.properties
 /.idea/workspace.xml
 /.idea/libraries
 .DS_Store
 /build
 /captures
 .externalNativeBuild
+.cxx
+.kotlin/
+
+# Ad unit / secret string resources (legacy)
 /app/src/main/res/values/keys.xml
+
+# Release signing — never commit passwords or keystores
+keystore.properties
+*.jks
+*.keystore

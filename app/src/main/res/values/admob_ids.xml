@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PRODUCTION AdMob IDs for Daily Motivational Quotes (letshangllc.quoteoftheday)
+    Publisher: ca-app-pub-8223005482588566
+    Source: AdMob console export (admob-ids.csv)
+
+    Debug builds override these with Google's official test IDs via
+    app/src/debug/res/values/admob_ids.xml.
+
+    Mapping:
+      AdMob App ID              → admob_app_id
+      Banner Main Screen        → admob_banner_main (MainActivity)
+      Banner Friends List       → unused (friends screen removed; unit kept in AdMob only)
+-->
+<resources>
+    <string name="admob_app_id" translatable="false">ca-app-pub-8223005482588566~4053766337</string>
+    <string name="admob_banner_main" translatable="false">ca-app-pub-8223005482588566/5530499537</string>
+</resources>

@@ -6,61 +6,58 @@
     android:layout_height="match_parent"
     tools:context="letshangllc.quoteoftheday.MainActivity">
 
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/man_on_mountain"
-        android:scaleType="centerCrop" />
-
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/bg_image_desc" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include layout="@layout/toolbar"/>
+
+            <include layout="@layout/toolbar" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time For Motivational Quote:"
-                android:gravity="center"/>
+                android:text="@string/time_for_quote"
+                android:gravity="center" />
 
             <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="08:00 AM"
+                android:text="@string/default_time_display"
                 android:textSize="64sp"
                 android:gravity="center"
                 android:textColor="@android:color/black"
                 android:clickable="true"
-                />
+                android:focusable="true" />
 
             <TextView
+                android:id="@+id/tvQuote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:id="@+id/tvQuote"
-
                 android:textSize="24sp"
                 android:textColor="@android:color/black"
                 android:background="#90FFFFFF"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="124dp"
-                android:padding="8dp"
-                />
+                android:padding="8dp" />
 
         </LinearLayout>
-
     </ScrollView>
 
-
-    <include layout="@layout/ad_layout"/>
-
+    <include layout="@layout/ad_layout" />
 
 </FrameLayout>
