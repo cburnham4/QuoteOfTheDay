@@ -1,43 +1,83 @@
+plugins {
+    id 'com.android.application'
+}
 
-apply plugin: 'com.android.application'
+// Load keystore properties if available (optional for local builds without signing)
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+def hasKeystoreConfig = keystorePropertiesFile.exists()
+if (hasKeystoreConfig) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    namespace 'letshangllc.quoteoftheday'
+    compileSdk 36
+
+    if (hasKeystoreConfig) {
+        signingConfigs {
+            release {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
     defaultConfig {
         applicationId "letshangllc.quoteoftheday"
-        minSdkVersion 14
-        targetSdkVersion 25
-
-        versionCode 11
-        versionName "1.60"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdk 24
+        targetSdk 36
+        versionCode 100
+        versionName "3.0.0"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+
     buildTypes {
+        debug {
+            // Debug builds use Google test ad IDs via app/src/debug/res/values/admob_ids.xml
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (hasKeystoreConfig) {
+                signingConfig signingConfigs.release
+            }
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    lint {
+        abortOnError true
+        checkReleaseBuilds false
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.core:core:1.15.0'
+    implementation 'androidx.activity:activity:1.9.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:2.7'
+    // Google Mobile Ads (AdMob)
+    implementation 'com.google.android.gms:play-services-ads:23.6.0'
 
-    compile 'com.android.volley:volley:1.0.0'
+    // User Messaging Platform (UMP) for GDPR/consent
+    implementation 'com.google.android.ump:user-messaging-platform:3.1.0'
 
-    compile 'com.google.android.gms:play-services-ads:11.0.2'
-    compile 'com.amazon.android:mobile-ads:5.+'
-    compile 'com.google.firebase:firebase-database:11.0.2'
+    implementation 'com.google.code.gson:gson:2.11.0'
 
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
-
-// Add to the bottom of the file
-apply plugin: 'com.google.gms.google-services'

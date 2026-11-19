@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AdMob IDs for Daily Motivational Quotes (letshangllc.quoteoftheday)
+    Publisher: ca-app-pub-8223005482588566
+
+    Real unit IDs lived in gitignored keys.xml and are missing from the tree.
+    Debug builds also use Google's official test IDs (app/src/debug/res/values/admob_ids.xml).
+
+    TODO(release): Replace ALL of these with real AdMob Console IDs before Play upload.
+    Do NOT ship Google test IDs to production.
+
+    Historical banner unit IDs from an old git commit (verify in AdMob before use):
+      admob_banner_main    = ca-app-pub-8223005482588566/5530499537
+      admob_banner_friends = ca-app-pub-8223005482588566/7007232735
+    AdMob App ID (~XXXXXXXXXX) for THIS app was never in the repo — look up/create in AdMob.
+-->
+<resources>
+    <!-- TODO(release): Replace with real App ID ca-app-pub-8223005482588566~XXXXXXXXXX -->
+    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+
+    <!-- TODO(release): Replace with real MainActivity banner unit -->
+    <string name="admob_banner_main" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!-- TODO(release): Replace with real FriendsListActivity banner unit -->
+    <string name="admob_banner_friends" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    DEBUG BUILD: Google's official test AdMob IDs.
+    Production placeholders/TODOs live in app/src/main/res/values/admob_ids.xml.
+-->
+<resources>
+    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_banner_main" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_banner_friends" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+</resources>
